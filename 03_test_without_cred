@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        
+        stage('pull-job') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SanjayTomar22/EasyCRUD.git'
+                echo 'Pull Job Success !'
+            }
+        }
+
+        stage('build-job') {
+            steps {
+                 sh '''cd backend 
+                mvn clean package -DskipTests
+                '''
+                echo 'Build Job Success !'
+            }
+        }
+
+        stage('test-job') {
+            steps {
+              withSonarQubeEnv(installationName: 'my-sonar' ,  credentialsId: 'token') {
+                    sh ''' 
+                         cd backend
+                         mvn sonar:sonar -Dsonar.projectKey=pipeline
+                    '''
+                }
+                 echo 'Test with scanner  Job Success !'   
+            }
+        }
+
+        stage('deploy-job') {
+            steps {
+                echo 'Running deploy job  . . . . .  '
+                echo 'Deploy Job Success !'
+            }
+        }
+    }
+}
