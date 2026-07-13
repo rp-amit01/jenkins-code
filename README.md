@@ -1,6 +1,6 @@
 # Jenkins Server 
 
-  Install java and maven
+STEP 1 :   Install java and maven
   
     apt update && apt install openjdk-21-jdk -y && apt install maven -y 
 
@@ -11,7 +11,7 @@
     java -version
 
 
-   install jenkins 
+   STEP 2 : Install Jenkins 
 
 
       sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
@@ -26,7 +26,7 @@
 
 # Sonar Server Setup
 
-Install and configure Database
+STEP 1 : Install and configure Database
 
 (Install java and PostgreSQL )
 
@@ -36,32 +36,32 @@ Install and configure Database
 
     sudo -u postgres psql
 
->> create User 
+ create User 
 
     CREATE USER linux PASSWORD 'redhat';
 
 
->> create Database 
+ create Database 
 
     CREATE DATABASE sonarqube;
     
->> grant previleges of DB to user  
+ grant previleges of DB to user  
 
     GRANT ALL PRIVILEGES ON DATABASE sonarqube TO linux;
 
->> start connection with database  
+ start connection with database  
 
     \c sonarqube;
 
->> Grant all previleges to user   
+ Grant all previleges to user   
 
     GRANT ALL PRIVILEGES ON SCHEMA public TO linux;
 
->> Quit the PostgreSQL
+ Quit the PostgreSQL
 
     \q
 
- # Configure Linux Machine
+STEP 2 : Configure Linux Machine
 
    
      sysctl -w vm.max_map_count=524288 && \
@@ -69,7 +69,7 @@ Install and configure Database
      ulimit -n 131072 && \
      ulimit -u 8192
 
-# Install and Configure Sonarqube
+STEP 3 : Install and Configure Sonarqube
 
 ( Install SonarQube Software )
       
@@ -91,11 +91,12 @@ Install and configure Database
 Edit Sonar properties 
 
 - in Database section 
->> sonar.jdbc.username=linux     ( username of DB  )
->> sonar.jdbc.password=redhat    ( password of DB )
->> sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube   ( url of DB )
 
-    vim conf/sonar.properties
+  sonar.jdbc.username=linux     ( username of DB  )
+  sonar.jdbc.password=redhat    ( password of DB )
+  sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube   ( url of DB )
+
+      vim conf/sonar.properties
 
 Create a Sonar User (who runs the sonar server ) 
 
