@@ -64,9 +64,9 @@ STEP 1 : Install and configure Database
 STEP 2 : Configure Linux Machine
 
    
-     sysctl -w vm.max_map_count=524288 && \
-     sysctl -w fs.file-max=131072 && \ 
-     ulimit -n 131072 && \
+     sysctl -w vm.max_map_count=524288 && 
+     sysctl -w fs.file-max=131072 &&  
+     ulimit -n 131072 && 
      ulimit -u 8192
 
 STEP 3 : Install and Configure Sonarqube
@@ -85,7 +85,7 @@ STEP 3 : Install and Configure Sonarqube
 
 ( Move the sonarqube package to /opt directory change directory to /opt  ) 
 
-    mv sonarqube-25.5.0.107428 /opt/sonar & \
+    mv sonarqube-25.5.0.107428 /opt/sonar && \
     cd /opt/sonar
 
 Edit Sonar properties 
